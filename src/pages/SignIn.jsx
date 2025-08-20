@@ -5,7 +5,7 @@ import React, { useState } from "react";
 //import { useNavigate } from "react-router-dom";
 import './Sign.css'
 function SignIn() {
-  const [numSolider, setNumSolider] = useState("");
+  const [service_id, setService_id] = useState("");
   const [password, setPassword] = useState("");
     const [validated, setValidated] = useState(false);
 
@@ -42,7 +42,7 @@ function SignIn() {
 
 
   }
-  const isValid = /^\d{7}$/.test(numSolider);
+  const isValid = /^\d{7}$/.test(service_id);
   return (
     <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "400px" }}>
@@ -51,7 +51,7 @@ function SignIn() {
         <form  >
           {/* Email */}
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="service_id" className="form-label">
               מ.א
             </label>
             <input
@@ -60,10 +60,10 @@ function SignIn() {
               maxLength={7}
               pattern="\d{7}"
               className={`form-control ${isValid ? "valid-input" : ""}`}
-              id="email"
+              id="service_id"
               placeholder="הכנס מספר אישי"
-              value={numSolider}
-              onChange={(e) => setNumSolider(e.target.value)}
+              value={service_id}
+              onChange={(e) => setService_id(e.target.value)}
               onInvalid={(e) => e.target.setCustomValidity("אנא הכנס מספר אישי בן 7 ספרות")}
               onInput={(e) => e.target.setCustomValidity("")}  
               required

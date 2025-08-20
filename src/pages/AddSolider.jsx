@@ -2,14 +2,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 
 function AddSolider() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [numSolider, setNumSolider] = useState("");
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [service_id, setService_id] = useState("");
   const [phone, setPhone] = useState("");
   const [validated, setValidated] = useState(false);
-  const [unit, setUnit] = useState("");
-  const [status, setStatus] = useState("");
-  const [position, setPosition] = useState("");
+  const [unit_id, setUnit_id] = useState("");
+  const [role, setRole] = useState("");
+  const [speciality, setSpeciality] = useState("");
+  const [is_active, setIs_active] = useState(true);
+  const [missions, setMissions] = useState([]);
 
   
 
@@ -20,7 +22,8 @@ function AddSolider() {
       e.stopPropagation();
     } else {
       // כאן אפשר להוסיף קריאה ל-API ליצירת משתמש
-      let newSolider = { firstName, lastName, numSolider, phone, unit , status, position };
+      let newSolider = { service_id, first_name,last_name,role, phone, unit_id , speciality ,is_active, missions};
+      console.log({ service_id, first_name,last_name,role, phone, unit_id , speciality ,is_active, missions})
       alert("משתמש נוצר בהצלחה!");
     }
     setValidated(true);
@@ -40,8 +43,8 @@ function AddSolider() {
               type="text"
               className="form-control"
               id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={first_name}
+              onChange={(e) => setFirst_name(e.target.value)}
               required
             />
             <div className="invalid-feedback">אנא הכנס שם פרטי</div>
@@ -54,8 +57,8 @@ function AddSolider() {
               type="text"
               className="form-control"
               id="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={last_name}
+              onChange={(e) => setLast_name(e.target.value)}
               required
             />
             <div className="invalid-feedback">אנא הכנס שם משפחה</div>
@@ -68,8 +71,8 @@ function AddSolider() {
               type="text"
               className="form-control"
               id="numSolider"
-              value={numSolider}
-              onChange={(e) => setNumSolider(e.target.value)}
+              value={service_id}
+              onChange={(e) => setService_id(e.target.value)}
               pattern="\d{7}"
               required
             />
@@ -92,12 +95,12 @@ function AddSolider() {
           </div>
           {/* יחידה */}
           <div className="mb-3">
-            <label htmlFor="unit" className="form-label">יחידה</label>
+            <label htmlFor="unit_id" className="form-label">יחידה</label>
             <select
               className="form-select"
-              id="unit"
-              value={unit}
-              onChange={(e) => setUnit(e.target.value)}
+              id="unit_id"
+              value={unit_id}
+              onChange={(e) => setUnit_id(e.target.value)}
               required
             >
               <option value="">בחר יחידה</option>
@@ -110,12 +113,12 @@ function AddSolider() {
 
           {/* סטטוס */}
           <div className="mb-3">
-            <label htmlFor="status" className="form-label">סטטוס</label>
+            <label htmlFor="role" className="form-label">סטטוס</label>
             <select
               className="form-select"
-              id="status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
               required
             >
               <option value="">בחר סטטוס</option>
@@ -131,9 +134,9 @@ function AddSolider() {
             <label htmlFor="position" className="form-label">התמחות</label>
             <select
               className="form-select"
-              id="position"
-              value={position}
-              onChange={(e) => setPosition(e.target.value)}
+              id="speciality"
+              value={speciality}
+              onChange={(e) => setSpeciality(e.target.value)}
               required
             >
               <option value="">בחר התמחות</option>
