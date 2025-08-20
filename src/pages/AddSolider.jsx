@@ -1,0 +1,167 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
+
+function AddSolider() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [numSolider, setNumSolider] = useState("");
+  const [phone, setPhone] = useState("");
+  const [validated, setValidated] = useState(false);
+  const [unit, setUnit] = useState("");
+  const [status, setStatus] = useState("");
+  const [position, setPosition] = useState("");
+
+  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    } else {
+      // כאן אפשר להוסיף קריאה ל-API ליצירת משתמש
+      let newSolider = { firstName, lastName, numSolider, phone, unit , status, position };
+      alert("משתמש נוצר בהצלחה!");
+    }
+    setValidated(true);
+  };
+
+  return (
+    <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
+      <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }}>
+        <h3 className="text-center mb-4">יצירת חייל חדש</h3>
+
+        <form noValidate className={validated ? "was-validated" : ""} onSubmit={handleSubmit}>
+
+          {/* שם פרטי */}
+          <div className="mb-3">
+            <label htmlFor="firstName" className="form-label">שם פרטי</label>
+            <input
+              type="text"
+              className="form-control"
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">אנא הכנס שם פרטי</div>
+          </div>
+
+          {/* שם משפחה */}
+          <div className="mb-3">
+            <label htmlFor="lastName" className="form-label">שם משפחה</label>
+            <input
+              type="text"
+              className="form-control"
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">אנא הכנס שם משפחה</div>
+          </div>
+
+          {/* מ.א */}
+          <div className="mb-3">
+            <label htmlFor="numSolider" className="form-label">מ.א</label>
+            <input
+              type="text"
+              className="form-control"
+              id="numSolider"
+              value={numSolider}
+              onChange={(e) => setNumSolider(e.target.value)}
+              pattern="\d{7}"
+              required
+            />
+            <div className="invalid-feedback">אנא הכנס מספר אישי בן 7 ספרות</div>
+          </div>
+
+          {/* אימייל */}
+          <div className="mb-3">
+            <label htmlFor="phone" className="form-label">פלאפון</label>
+            <input
+              type="text"
+              className="form-control"
+              id="phone"
+              pattern="\d{10}"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+            <div className="invalid-feedback">אנא הכנס מספר בן 10 ספרות</div>
+          </div>
+          {/* יחידה */}
+          <div className="mb-3">
+            <label htmlFor="unit" className="form-label">יחידה</label>
+            <select
+              className="form-select"
+              id="unit"
+              value={unit}
+              onChange={(e) => setUnit(e.target.value)}
+              required
+            >
+              <option value="">בחר יחידה</option>
+              <option value="unit1"> 1</option>
+              <option value="unit2"> 2</option>
+              <option value="unit3"> 3</option>
+            </select>
+            <div className="invalid-feedback">אנא בחר יחידה</div>
+          </div>
+
+          {/* סטטוס */}
+          <div className="mb-3">
+            <label htmlFor="status" className="form-label">סטטוס</label>
+            <select
+              className="form-select"
+              id="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              required
+            >
+              <option value="">בחר סטטוס</option>
+              <option value="private">חייל</option>
+              <option value="sergeant">מפקד</option>
+
+            </select>
+            <div className="invalid-feedback">אנא בחר סטטוס</div>
+          </div>
+
+          {/* תפקיד */}
+          <div className="mb-3">
+            <label htmlFor="position" className="form-label">התמחות</label>
+            <select
+              className="form-select"
+              id="position"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+              required
+            >
+              <option value="">בחר התמחות</option>
+              <option value="private">קלע</option>
+              <option value="sergeant">נהג</option>
+              <option value="lieutenant">מגיסט</option>
+              <option value="lieutenant">נגביסט</option>
+            </select>
+            <div className="invalid-feedback">אנא בחר התמחות</div>
+          </div>
+
+          {/* כפתור */}
+          <button type="submit" className="btn btn-primary w-100">צור משתמש</button>
+
+        </form>
+      </div>
+
+    </div>
+
+  );
+}
+
+// first_name: 'יוסי',
+//         last_name: 'מזרחי',
+//         role: 'soldier',
+//         phone: '052-1122334',
+//         unit_id: 1,
+//         speciality: ['נהג', 'חובש'],
+// service_id: 1004,
+
+export default AddSolider;

@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState} from "react";
+import React, { useState } from "react";
 //import { supabase } from "../data/supabaseClient";
 //import UserContext from "../context/UserContext";
 //import { useNavigate } from "react-router-dom";
@@ -7,29 +7,30 @@ import './Sign.css'
 function SignIn() {
   const [numSolider, setNumSolider] = useState("");
   const [password, setPassword] = useState("");
-  
-//   const navigate = useNavigate();
+    const [validated, setValidated] = useState(false);
+
+  //   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   function SignInClicked(e) {
-//     e.preventDefault(); // prevent page reload
-//     setLoading(true);
+    //     e.preventDefault(); // prevent page reload
+    //     setLoading(true);
+    setValidated(true)
+    //     const { data, error } = await supabase.auth.signInWithPassword({
+    //       email,
+    //       password,
+    //     });
+    setLoading(true);
+    //     if (error) {
+    //       alert(" Login failed: " + error.message);
+    //       console.error("Login error:", error);
+    setTimeout(() => {
 
-//     const { data, error } = await supabase.auth.signInWithPassword({
-//       email,
-//       password,
-//     });
- setLoading(true);
-//     if (error) {
-//       alert(" Login failed: " + error.message);
-//       console.error("Login error:", error);
-   setTimeout(()=>{
-       
-     setLoading(false);
-   },1000)
-     
-//       return;
-//     }
+      setLoading(false);
+    }, 1000)
+
+    //       return;
+    //     }
 
     // if (data?.user) {
     //   // Save username (example: everything before @)
@@ -39,15 +40,15 @@ function SignIn() {
     //   navigate("/tweet");
     // }
 
-  
+
   }
   const isValid = /^\d{7}$/.test(numSolider);
   return (
     <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "400px" }}>
         <h3 className="text-center mb-4">התחברות</h3>
-   
-        <form >
+
+        <form  >
           {/* Email */}
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
@@ -58,13 +59,13 @@ function SignIn() {
               inputMode="numeric"
               maxLength={7}
               pattern="\d{7}"
-              className={`form-control ${isValid  ? "valid-input" : ""}`} 
+              className={`form-control ${isValid ? "valid-input" : ""}`}
               id="email"
               placeholder="הכנס מספר אישי"
               value={numSolider}
               onChange={(e) => setNumSolider(e.target.value)}
-               onInvalid={(e) => e.target.setCustomValidity("אנא הכנס מספר אישי בן 7 ספרות")}
-  onInput={(e) => e.target.setCustomValidity("")}  // מנקה את ההודעה כשמתחילים להקליד
+              onInvalid={(e) => e.target.setCustomValidity("אנא הכנס מספר אישי בן 7 ספרות")}
+              onInput={(e) => e.target.setCustomValidity("")}  
               required
             />
           </div>
@@ -95,7 +96,7 @@ function SignIn() {
 
           {/* Button */}
           <button type="submit" className="btn btn-primary w-100" onClick={SignInClicked} >
-             {loading ? "מתחבר..." : "התחבר"} 
+            {loading ? "מתחבר..." : "התחבר"}
           </button>
         </form>
 
