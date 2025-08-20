@@ -1,17 +1,17 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-//import React, { useState} from "react";
+import React, { useState} from "react";
 //import { supabase } from "../data/supabaseClient";
 //import UserContext from "../context/UserContext";
 //import { useNavigate } from "react-router-dom";
-
+import './Sign.css'
 function SignIn() {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
+  const [numSolider, setNumSolider] = useState("");
+  const [password, setPassword] = useState("");
   
 //   const navigate = useNavigate();
-//   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-//   async function SignInClicked(e) {
+  function SignInClicked(e) {
 //     e.preventDefault(); // prevent page reload
 //     setLoading(true);
 
@@ -19,11 +19,15 @@ function SignIn() {
 //       email,
 //       password,
 //     });
-
+ setLoading(true);
 //     if (error) {
 //       alert(" Login failed: " + error.message);
 //       console.error("Login error:", error);
-//       setLoading(false);
+   setTimeout(()=>{
+       
+     setLoading(false);
+   },1000)
+     
 //       return;
 //     }
 
@@ -35,27 +39,32 @@ function SignIn() {
     //   navigate("/tweet");
     // }
 
-//     setLoading(false);
-//   }
-
+  
+  }
+  const isValid = /^\d{7}$/.test(numSolider);
   return (
     <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "400px" }}>
-        <h3 className="text-center mb-4">Sign In</h3>
-
+        <h3 className="text-center mb-4">התחברות</h3>
+   
         <form >
           {/* Email */}
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
-              Email address
+              מ.א
             </label>
             <input
-              type="email"
-              className="form-control"
+              type="text"
+              inputMode="numeric"
+              maxLength={7}
+              pattern="\d{7}"
+              className={`form-control ${isValid  ? "valid-input" : ""}`} 
               id="email"
-              placeholder="Enter your email"
-            //   value={email}
-            //   onChange={(e) => setEmail(e.target.value)}
+              placeholder="הכנס מספר אישי"
+              value={numSolider}
+              onChange={(e) => setNumSolider(e.target.value)}
+               onInvalid={(e) => e.target.setCustomValidity("אנא הכנס מספר אישי בן 7 ספרות")}
+  onInput={(e) => e.target.setCustomValidity("")}  // מנקה את ההודעה כשמתחילים להקליד
               required
             />
           </div>
@@ -69,9 +78,9 @@ function SignIn() {
               type="password"
               className="form-control"
               id="password"
-              placeholder="Enter your password"
-            //   value={password}
-            //   onChange={(e) => setPassword(e.target.value)}
+              placeholder="הקלד סיסמא"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
@@ -80,20 +89,20 @@ function SignIn() {
           <div className="mb-3 form-check">
             <input type="checkbox" className="form-check-input" id="rememberMe" />
             <label className="form-check-label" htmlFor="rememberMe">
-              Remember me
+              זכור אותי
             </label>
           </div>
 
           {/* Button */}
-          <button type="submit" className="btn btn-primary w-100" >
-            {/* {loading ? "Signing in..." : "Sign In"} */}
+          <button type="submit" className="btn btn-primary w-100" onClick={SignInClicked} >
+             {loading ? "מתחבר..." : "התחבר"} 
           </button>
         </form>
 
         {/* Links */}
         <div className="mt-3 text-center">
-          <a href="#">Forgot password?</a> <br />
-          <a href="#">Create an account</a>
+          <a href="#">שכחת סיסמא?</a> <br />
+          <a href="#">צור חשבון</a>
         </div>
       </div>
     </div>
