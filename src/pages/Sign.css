@@ -1,0 +1,13 @@
+
+
+.valid-input {
+  background-color: rgb(183, 241, 178);
+}
+.form-check{
+  display: flex;
+  align-items: center;  /* מיישר את הצ'קבוקס עם הטקסט */
+  gap: 32px;             /* רווח בין הצ'קבוקס לטקסט */
+  direction: rtl; 
+  float: right;
+}
+
