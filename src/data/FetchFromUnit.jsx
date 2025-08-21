@@ -1,5 +1,5 @@
 // fetchUnits.jsx
-import { supabase } from './supabase'
+// import { supabase } from './supabase'
 
 export async function fetchUnits() {
   try {
@@ -9,4 +9,12 @@ export async function fetchUnits() {
     console.error('Error fetching units:', err);
     return { data: [], error: err };
   }
+}
+
+export function MockUnit(){
+  return [
+    { id: 1, name: 'פלוגה 1' },
+    { id: 2, name: 'פלוגה 2' },
+    { id: 3, name: 'פלוגה 3' }
+  ];
 }
