@@ -5,41 +5,6 @@ export class UserStore {
   users = [];
   error = null;
 
-
-sampleSoldiers = [
-  {
-    first_name: "יוסי",
-    last_name: "מזרחי",
-    service_id: "1000001",
-    phone: "0521122334",
-    unit_id: "פלוגה א",
-    role: "חייל",
-    speciality: ["נהג", "חובש"],
-    is_active: true,
-  },
-  {
-    first_name: "דני",
-    last_name: "לוי",
-    service_id: "1000002",
-    phone: "0522233445",
-    unit_id: "פלוגה ב",
-    role: "מפקד",
-    speciality: ["קלע"],
-    is_active: true,
-  },
-  {
-    first_name: "רוני",
-    last_name: "ביטון",
-    service_id: "1000003",
-    phone: "0523344556",
-    unit_id: "פלוגה ג",
-    role: "חייל",
-    speciality: ["נגביסט"],
-    is_active: false,
-  },
-];
-
-
   unitFilter = null;
   activeOnly = true;
 
@@ -86,7 +51,7 @@ sampleSoldiers = [
   // Unfiltered versions (use this.filtered instead of this.users if you want filtered lists)
 
   get getAllUsers() {
-    return this.sampleSoldiers;
+    return this.users;
   }
   
   get getServiceIds() {
