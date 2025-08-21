@@ -12,7 +12,7 @@ const AddSolider = observer(() => {
   const [validated, setValidated] = useState(false);
   const [unit_id, setUnit_id] = useState("");
   const [role, setRole] = useState("");
-  const [speciality, setSpeciality] = useState("");
+  const [speciality, setSpeciality] = useState([]);
   const [is_active, setIs_active] = useState(true);
   const [missions, setMissions] = useState([]);
   
@@ -34,8 +34,19 @@ const AddSolider = observer(() => {
     setValidated(true);
   };
 
+    const handleSelect = (e) => {
+    const value = e.target.value;
+
+    // בודק אם כבר קיים במערך, כדי לא להוסיף פעמיים
+    if (!speciality.includes(value)) {
+      setSpeciality((prev) => [...prev, value]);
+    }
+  };
+
   return (
+   
     <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
+       {console.log(speciality)}
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }}>
         <h3 className="text-center mb-4">יצירת חייל חדש</h3>
 
@@ -144,14 +155,14 @@ const AddSolider = observer(() => {
               className="form-select"
               id="speciality"
               value={speciality}
-              onChange={(e) => setSpeciality(e.target.value)}
+              onChange={handleSelect}
               required
             >
               <option value="">בחר התמחות</option>
-              <option value="private">קלע</option>
-              <option value="sergeant">נהג</option>
-              <option value="lieutenant">מגיסט</option>
-              <option value="lieutenant">נגביסט</option>
+              <option value="kala">קלע</option>
+              <option value="driver">נהג</option>
+              <option value="mag">מגיסט</option>
+              <option value="negev">נגביסט</option>
             </select>
             <div className="invalid-feedback">אנא בחר התמחות</div>
           </div>
