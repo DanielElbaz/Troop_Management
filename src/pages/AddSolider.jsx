@@ -1,7 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
+import { unitStore } from "../stores/UnitStore";
 
-function AddSolider() {
+const AddSolider = observer(() => {
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
   const [service_id, setService_id] = useState("");
@@ -93,20 +95,23 @@ function AddSolider() {
             />
             <div className="invalid-feedback">אנא הכנס מספר בן 10 ספרות</div>
           </div>
-          {/* יחידה */}
+          {/* פלוגה */}
           <div className="mb-3">
-            <label htmlFor="unit_id" className="form-label">יחידה</label>
+            <label htmlFor="unit_id" className="form-label">פלוגה</label>
             <select
               className="form-select"
               id="unit_id"
               value={unit_id}
               onChange={(e) => setUnit_id(e.target.value)}
+              placeholder="בחר פלוגה"
               required
             >
-              <option value="">בחר יחידה</option>
-              <option value="unit1"> 1</option>
-              <option value="unit2"> 2</option>
-              <option value="unit3"> 3</option>
+              <option value="">בחר פלוגה</option>
+              {unitStore.getNames.map((name, index) => (
+                <option key={index} value={name}>
+                  {name}
+                </option>
+              ))}
             </select>
             <div className="invalid-feedback">אנא בחר יחידה</div>
           </div>
@@ -157,7 +162,7 @@ function AddSolider() {
     </div>
 
   );
-}
+})
 
 // first_name: 'יוסי',
 //         last_name: 'מזרחי',
