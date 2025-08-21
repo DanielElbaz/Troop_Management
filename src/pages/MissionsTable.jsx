@@ -1,67 +1,12 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { userStore } from "../stores/UserStore"; 
+import "bootstrap/dist/css/bootstrap.min.css"; 
 import { observer } from "mobx-react-lite";
+import { missionsStore } from "../stores/MissionsStore"; 
 
 
 
 
 const MissionsTable = observer(() => {
-
-    let missions = [
-    {
-      id: "11111111-1111-1111-1111-111111111111",
-      title: "משימת סיור יומי",
-      description: "סיור בשטח הצפוני",
-      status: "planned",
-      start_at: "2025-08-25T05:00:00+00:00",
-      end_at: "2025-08-25T09:00:00+00:00",
-      created_by: null,
-      notes: ["בדיקת ציוד", "בדיקת קשר"],
-      comments: ["אין הערות"],
-      unit_id: 1,
-      inserted_at: "2025-08-21T12:00:00+00:00"
-    },
-    {
-      id: "22222222-2222-2222-2222-222222222222",
-      title: "משימת אבטחה",
-      description: "שמירה על נקודות אסטרטגיות",
-      status: "active",
-      start_at: "2025-08-25T06:00:00+00:00",
-      end_at: "2025-08-25T14:00:00+00:00",
-      created_by: null,
-      notes: ["קבלת מיפוי", "בדיקת גדרות"],
-      comments: ["תגובה ראשונה"],
-      unit_id: 2,
-      inserted_at: "2025-08-21T12:10:00+00:00"
-    },
-    {
-      id: "33333333-3333-3333-3333-333333333333",
-      title: "משימת מודיעין",
-      description: "איסוף מידע על פעילות חשודה",
-      status: "planned",
-      start_at: "2025-08-26T07:00:00+00:00",
-      end_at: "2025-08-26T12:00:00+00:00",
-      created_by: null,
-      notes: ["קבלת מיפוי", "ראיית שטח"],
-      comments: ["דווח ראשוני"],
-      unit_id: 3,
-      inserted_at: "2025-08-21T12:20:00+00:00"
-    },
-    {
-      id: "44444444-4444-4444-4444-444444444444",
-      title: "משימת לוגיסטיקה",
-      description: "העברת ציוד ליחידה",
-      status: "planned",
-      start_at: "2025-08-27T04:00:00+00:00",
-      end_at: "2025-08-27T08:00:00+00:00",
-      created_by: null,
-      notes: ["העמסת ציוד"],
-      comments: ["בדיקה ראשונה"],
-      unit_id: 1,
-      inserted_at: "2025-08-21T12:30:00+00:00"
-    }
-  ];
   return (
          <div className="container mt-4">
       <h2 className="mb-3">רשימת משימות</h2>
@@ -82,7 +27,7 @@ const MissionsTable = observer(() => {
       </tr>
     </thead>
     <tbody>
-      {missions.map((m, index) => (
+      {missionsStore.getAllMissions().map((m, index) => (
         <tr key={index}>
           <td>{m.title}</td>
           <td>{m.description}</td>
@@ -112,7 +57,7 @@ const MissionsTable = observer(() => {
 
 {/* Cards למובייל */}
 <div className="d-block d-md-none">
-  {missions.map((m, index) => (
+  {missionsStore.getAllMissions().map((m, index) => (
     <div key={index} className="card mb-3 shadow-sm">
       <div className="card-body">
         <p>

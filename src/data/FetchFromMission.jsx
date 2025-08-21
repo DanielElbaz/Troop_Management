@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 
-export async function getAllMissions() {
+export async function fetchAllMissions() {
   const { data, error } = await supabase
     .from('missions')
     .select('*')
