@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { unitStore } from "../stores/UnitStore";
+ import { MockUnit } from "../data/FetchFromUnit";
 
 const AddSolider = observer(() => {
   const [first_name, setFirst_name] = useState("");
@@ -14,7 +15,9 @@ const AddSolider = observer(() => {
   const [speciality, setSpeciality] = useState("");
   const [is_active, setIs_active] = useState(true);
   const [missions, setMissions] = useState([]);
-
+  
+  const a = MockUnit();
+  console.log(a)
   
 
   const handleSubmit = (e) => {
@@ -107,9 +110,9 @@ const AddSolider = observer(() => {
               required
             >
               <option value="">בחר פלוגה</option>
-              {unitStore.getNames.map((name, index) => (
-                <option key={index} value={name}>
-                  {name}
+              {a.map((name, index) => (
+                <option key={index} value={name.id}>
+                  {name.name}
                 </option>
               ))}
             </select>
