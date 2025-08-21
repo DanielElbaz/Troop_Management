@@ -38,6 +38,7 @@ function SignIn() {
 
     //   // Redirect after login
       navigate("/commander-dash");
+      // navigate("/soldierHomePage");
     // }
 
 
