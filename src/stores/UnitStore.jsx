@@ -11,7 +11,8 @@ export class UnitStore {
   }
 
   get getNames(){
-    return this.units.map(unit => unit.name);
+    console.log('all units',this.units);
+    return this.units.map(unit => unit);
   }
 
   async loadUnits() {
@@ -34,7 +35,7 @@ export class UnitStore {
   }
 
   // Optional: alias for refresh
-  fetchUnits() {
+  MockUnit() {
     this.loadUnits();
   }
 }

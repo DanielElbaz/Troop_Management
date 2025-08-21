@@ -2,14 +2,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 //import { supabase } from "../data/supabaseClient";
 //import UserContext from "../context/UserContext";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './Sign.css'
 function SignIn() {
   const [service_id, setService_id] = useState("");
   const [password, setPassword] = useState("");
-    const [validated, setValidated] = useState(false);
+  const [validated, setValidated] = useState(false);
 
-  //   const navigate = useNavigate();
+    const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   function SignInClicked(e) {
@@ -37,7 +37,8 @@ function SignIn() {
     //   //setUsername(data.user.email?.split("@")[0] || "Guest");
 
     //   // Redirect after login
-    //   navigate("/tweet");
+      navigate("/commander-dash");
+      // navigate("/soldierHomePage");
     // }
 
 

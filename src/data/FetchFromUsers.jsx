@@ -11,10 +11,10 @@ import { supabase } from './supabase'
  * @param {number} user.unit_id - ID of the unit
  * @param {Array} user.speciality - Array of strings
  * @param {boolean} user.is_active
- * @param {Array} user.missions - Array of strings
  */
 export async function addUser(user) {
   try {
+    console.log('Adding user:', user)
     const { data, error } = await supabase
       .from('users')
       .insert([
@@ -27,7 +27,6 @@ export async function addUser(user) {
           unit_id: user.unit_id,
           speciality: user.speciality,
           is_active: user.is_active,
-          missions: user.missions
         }
       ])
 
