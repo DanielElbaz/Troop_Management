@@ -5,39 +5,6 @@ import { observer } from "mobx-react-lite";
 
 
 // רשימת חיילים לדוגמה
-// const sampleSoldiers = [
-//   {
-//     first_name: "יוסי",
-//     last_name: "מזרחי",
-//     service_id: "1000001",
-//     phone: "0521122334",
-//     unit_id: "פלוגה א",
-//     role: "חייל",
-//     speciality: ["נהג", "חובש"],
-//     is_active: true,
-//   },
-//   {
-//     first_name: "דני",
-//     last_name: "לוי",
-//     service_id: "1000002",
-//     phone: "0522233445",
-//     unit_id: "פלוגה ב",
-//     role: "מפקד",
-//     speciality: ["קלע"],
-//     is_active: true,
-//   },
-//   {
-//     first_name: "רוני",
-//     last_name: "ביטון",
-//     service_id: "1000003",
-//     phone: "0523344556",
-//     unit_id: "פלוגה ג",
-//     role: "חייל",
-//     speciality: ["נגביסט"],
-//     is_active: false,
-//   },
-// ];
-
 
 const SoldiersTable = observer(() => {
   return (
@@ -77,7 +44,7 @@ const SoldiersTable = observer(() => {
                   </span>
                 </td>
                 {console.log(s.speciality)}
-                <td>{s.speciality.skills.join(", ")}</td>
+                <td>{s.speciality?.join(", ") || "-"}</td>
                 <td>
                   <span
                     className={`badge ${
@@ -121,7 +88,7 @@ const SoldiersTable = observer(() => {
                 </span>
               </p>
               <p>
-                <strong>התמחות:</strong> {s.speciality.skills.join(", ")}
+                <strong>התמחות:</strong> {s.speciality?.join(", ") || "-"}
               </p>
               <p>
                 <strong>פעיל:</strong>{" "}

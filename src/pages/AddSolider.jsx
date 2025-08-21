@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { unitStore } from "../stores/UnitStore";
+
 import { userStore } from "../stores/UserStore";
 
 const AddSolider = observer(() => {
@@ -12,11 +13,11 @@ const AddSolider = observer(() => {
   const [validated, setValidated] = useState(false);
   const [unit_id, setUnit_id] = useState(0);
   const [role, setRole] = useState("");
-  const [speciality, setSpeciality] = useState("");
+  const [speciality, setSpeciality] = useState([]);
   const [is_active, setIs_active] = useState(true);
   const [missions, setMissions] = useState([]);
 
-  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,20 +27,31 @@ const AddSolider = observer(() => {
       setValidated(true);
       return;
     }
-      // כאן אפשר להוסיף קריאה ל-API ליצירת משתמש
+    // כאן אפשר להוסיף קריאה ל-API ליצירת משתמש
     try {
-    let newSoldier = { service_id, first_name,last_name,role, phone, unit_id , speciality ,is_active, missions};
-    userStore.addSoldier(newSoldier);
-    alert("משתמש נוצר בהצלחה!");
-    }catch (error) {
+      let newSoldier = { service_id, first_name, last_name, role, phone, unit_id, skills:speciality, is_active, missions };
+      userStore.addSoldier(newSoldier);
+      alert("משתמש נוצר בהצלחה!"); 
+    } catch (error) {
       // Error is already set in userStore.error
       console.error("Error adding soldier:", error.message);
     }
     setValidated(true);
   };
 
+  const handleSelect = (e) => {
+    const value = e.target.value;
+
+    // בודק אם כבר קיים במערך, כדי לא להוסיף פעמיים
+    if (!speciality.includes(value)) {
+      setSpeciality((prev) => [...prev, value]);
+    }
+  };
+
   return (
+
     <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
+      {console.log(speciality)}
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }}>
         <h3 className="text-center mb-4">יצירת חייל חדש</h3>
 
@@ -115,9 +127,10 @@ const AddSolider = observer(() => {
             >
 
               <option value="">בחר פלוגה</option>
-              {unitStore.getNames.map((obj) => (
-                <option value={obj.unit_id}>
-                  {obj.name}
+              
+              {unitStore.getNames.map((name, index) => (
+                <option key={index} value={name}>
+                  {name}
                 </option>
               ))}
             </select>
@@ -144,22 +157,36 @@ const AddSolider = observer(() => {
 
           {/* תפקיד */}
           <div className="mb-3">
-            <label htmlFor="position" className="form-label">התמחות</label>
+            <label htmlFor="speciality" className="form-label">התמחות</label>
             <select
               className="form-select"
               id="speciality"
-              value={speciality}
-              onChange={(e) => setSpeciality(e.target.value)}
+              value={speciality[speciality.length - 1] || ""} // אופציה אחרונה נראית במקום הדיפולט
+              onChange={(e) => {
+                const value = e.target.value;
+                if (value && !speciality.includes(value)) {
+                  setSpeciality((prev) => [...prev, value]); // מוסיף למערך
+                }
+              }}
               required
             >
               <option value="">בחר התמחות</option>
-              <option value="private">קלע</option>
-              <option value="sergeant">נהג</option>
-              <option value="lieutenant">מגיסט</option>
-              <option value="lieutenant">נגביסט</option>
+              <option value="kala">קלע</option>
+              <option value="driver">נהג</option>
+              <option value="mag">מגיסט</option>
+              <option value="negev">נגביסט</option>
             </select>
+
+            {/* מציג את כל הנבחרות */}
+            {speciality.length > 0 && (
+              <div className="mt-2">
+                נבחרו: {speciality.join(", ")}
+              </div>
+            )}
+
             <div className="invalid-feedback">אנא בחר התמחות</div>
           </div>
+
 
           {/* כפתור */}
           <button type="submit" className="btn btn-primary w-100">צור משתמש</button>
