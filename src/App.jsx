@@ -4,20 +4,14 @@ import SignIn from './pages/SignIn';
 
 import AddSolider from './pages/AddSolider';
 
-
 //import TestUsers from "./data/TestUsers"
-
+import TestUnitStore from './stores/TestUnitStore';
 function App() {
- 
-
   return (
-    <>
-
-    <SignIn/>
-    <AddSolider/>
-
-    </>
-  )
+    <div className="App">
+      <AddSolider />
+    </div>
+  );
 }
 
-export default App
+export default App;

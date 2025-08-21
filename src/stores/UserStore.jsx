@@ -1,7 +1,4 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { supabase } from '../data/supabaseClient';
-import { USE_MOCK } from '../data/config';
-import { mockFetchUsers } from '../data/mockApi';
 
 export class UserStore {
   users = [];
@@ -38,17 +35,7 @@ export class UserStore {
   async fetchUsers() {
     this.loading = true; this.error = null;
 
-    if (USE_MOCK) {
-      const data = await mockFetchUsers({
-        unitFilter: this.unitFilter,
-        activeOnly: this.activeOnly,
-        query: this.query
-      });
-      return runInAction(() => { this.loading = false; this.users = data; });
-    }
-
-    let req = supabase.from('users').select('*');
-    if (this.unitFilter) req = req.eq('unit_id', this.unitFilter);
+    if(this.unitFilter) req = req.eq('unit_id', this.unitFilter);
     if (this.activeOnly) req = req.eq('is_active', true);
     if (this.query) {
       const q = this.query.replace(/%/g, '').trim();
