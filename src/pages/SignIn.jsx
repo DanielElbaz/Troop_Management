@@ -3,44 +3,39 @@ import React, { useState } from "react";
 //import { supabase } from "../data/supabaseClient";
 //import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { userStore } from "../stores/UserStore";
+import { observer } from "mobx-react-lite";
+
+
 import './Sign.css'
-function SignIn() {
+import { unitStore } from "../stores/UnitStore";
+const SignIn = observer(() => {
   const [service_id, setService_id] = useState("");
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   function SignInClicked(e) {
-    //     e.preventDefault(); // prevent page reload
-    //     setLoading(true);
+    console.log(userStore);                     
+    console.log(typeof userStore.filterById);
     setValidated(true)
-    //     const { data, error } = await supabase.auth.signInWithPassword({
-    //       email,
-    //       password,
-    //     });
-    setLoading(true);
-    //     if (error) {
-    //       alert(" Login failed: " + error.message);
-    //       console.error("Login error:", error);
-    setTimeout(() => {
-
-      setLoading(false);
-    }, 1000)
-
-    //       return;
-    //     }
-
-    // if (data?.user) {
-    //   // Save username (example: everything before @)
-    //   //setUsername(data.user.email?.split("@")[0] || "Guest");
-
-    //   // Redirect after login
-      navigate("/commander-dash");
-      // navigate("/soldierHomePage");
-    // }
-
+    e.preventDefault();
+    const filt_ID = userStore.filterById(Number(service_id));
+    if (filt_ID.length === 0) {
+      navigate("/")
+      return;
+    } else {
+      const role = userStore.roleById(Number(service_id));
+      if (role === null) {
+        navigate("/");
+        return
+      }
+      console.log("rol " + role);
+      role == "commander" ?
+        navigate("/commander-dash") : navigate("/soldierHomePage");
+      return;
+    }
 
   }
   const isValid = /^\d{7}$/.test(service_id);
@@ -66,7 +61,7 @@ function SignIn() {
               value={service_id}
               onChange={(e) => setService_id(e.target.value)}
               onInvalid={(e) => e.target.setCustomValidity("אנא הכנס מספר אישי בן 7 ספרות")}
-              onInput={(e) => e.target.setCustomValidity("")}  
+              onInput={(e) => e.target.setCustomValidity("")}
               required
             />
           </div>
@@ -109,6 +104,6 @@ function SignIn() {
       </div>
     </div>
   );
-}
+})
 
 export default SignIn;
