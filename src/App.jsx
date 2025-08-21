@@ -9,6 +9,7 @@ import TestUnitStore from "./stores/TestUnitStore";
 import CommanderDashboard from "./pages/CommanderDashboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SoldiersTable from "./pages/SoldiersTable";
+import MissionsTable from "./pages/MissionsTable";
 // import TestUserStore from './stores/TestUserStore';
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/commander-dash" element={<CommanderDashboard />}>
             <Route path="add-solider" element={<AddSolider />} />
             <Route path="soliders-table" element={<SoldiersTable />} /> 
+            <Route path="mission-table" element={<MissionsTable />} /> 
             {/* <Route path="/soldierHomePage" element={<SoldierHomePage />} /> */}
           </Route>
 
