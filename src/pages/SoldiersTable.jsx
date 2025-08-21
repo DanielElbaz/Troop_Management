@@ -1,41 +1,45 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { userStore } from "../stores/UserStore"; 
+import { observer } from "mobx-react-lite";
+
 
 // רשימת חיילים לדוגמה
-const sampleSoldiers = [
-  {
-    first_name: "יוסי",
-    last_name: "מזרחי",
-    service_id: "1000001",
-    phone: "0521122334",
-    unit_id: "פלוגה א",
-    role: "חייל",
-    speciality: ["נהג", "חובש"],
-    is_active: true,
-  },
-  {
-    first_name: "דני",
-    last_name: "לוי",
-    service_id: "1000002",
-    phone: "0522233445",
-    unit_id: "פלוגה ב",
-    role: "מפקד",
-    speciality: ["קלע"],
-    is_active: true,
-  },
-  {
-    first_name: "רוני",
-    last_name: "ביטון",
-    service_id: "1000003",
-    phone: "0523344556",
-    unit_id: "פלוגה ג",
-    role: "חייל",
-    speciality: ["נגביסט"],
-    is_active: false,
-  },
-];
+// const sampleSoldiers = [
+//   {
+//     first_name: "יוסי",
+//     last_name: "מזרחי",
+//     service_id: "1000001",
+//     phone: "0521122334",
+//     unit_id: "פלוגה א",
+//     role: "חייל",
+//     speciality: ["נהג", "חובש"],
+//     is_active: true,
+//   },
+//   {
+//     first_name: "דני",
+//     last_name: "לוי",
+//     service_id: "1000002",
+//     phone: "0522233445",
+//     unit_id: "פלוגה ב",
+//     role: "מפקד",
+//     speciality: ["קלע"],
+//     is_active: true,
+//   },
+//   {
+//     first_name: "רוני",
+//     last_name: "ביטון",
+//     service_id: "1000003",
+//     phone: "0523344556",
+//     unit_id: "פלוגה ג",
+//     role: "חייל",
+//     speciality: ["נגביסט"],
+//     is_active: false,
+//   },
+// ];
 
-export default function SoldiersTable({ soldiers = sampleSoldiers }) {
+
+const SoldiersTable = observer(() => {
   return (
          <div className="container mt-4">
       <h2 className="mb-3">רשימת חיילים</h2>
@@ -56,7 +60,7 @@ export default function SoldiersTable({ soldiers = sampleSoldiers }) {
             </tr>
           </thead>
           <tbody>
-            {soldiers.map((s, index) => (
+            {userStore.getAllUsers.map((s, index) => (
               <tr key={index}>
                 <td>{s.service_id}</td>
                 <td>{s.first_name}</td>
@@ -72,7 +76,8 @@ export default function SoldiersTable({ soldiers = sampleSoldiers }) {
                     {s.role}
                   </span>
                 </td>
-                <td>{s.speciality.join(", ")}</td>
+                {console.log(s.speciality)}
+                <td>{s.speciality.skills.join(", ")}</td>
                 <td>
                   <span
                     className={`badge ${
@@ -90,7 +95,7 @@ export default function SoldiersTable({ soldiers = sampleSoldiers }) {
 
       {/* Cards למובייל */}
       <div className="d-block d-md-none">
-        {soldiers.map((s, index) => (
+        {userStore.getAllUsers.map((s, index) => (
           <div key={index} className="card mb-3 shadow-sm">
             <div className="card-body">
               <p>
@@ -116,7 +121,7 @@ export default function SoldiersTable({ soldiers = sampleSoldiers }) {
                 </span>
               </p>
               <p>
-                <strong>התמחות:</strong> {s.speciality.join(", ")}
+                <strong>התמחות:</strong> {s.speciality.skills.join(", ")}
               </p>
               <p>
                 <strong>פעיל:</strong>{" "}
@@ -134,4 +139,6 @@ export default function SoldiersTable({ soldiers = sampleSoldiers }) {
       </div>
     </div>
   );
-}
+})
+
+export default SoldiersTable;

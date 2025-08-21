@@ -11,7 +11,8 @@ export class UnitStore {
   }
 
   get getNames(){
-    return this.units.map(unit => unit.name);
+    console.log('all units',this.units);
+    return this.units.map(unit => unit);
   }
 
   async loadUnits() {
@@ -19,7 +20,7 @@ export class UnitStore {
     this.error = null;
 
     try {
-      const { data, error } = await MockUnit();
+      const { data, error } = await fetchUnits();
       runInAction(() => {
         this.units = data || [];
         this.error = error ? error.message : null;

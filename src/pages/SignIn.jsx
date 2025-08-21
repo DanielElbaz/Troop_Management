@@ -7,7 +7,7 @@ import './Sign.css'
 function SignIn() {
   const [service_id, setService_id] = useState("");
   const [password, setPassword] = useState("");
-    const [validated, setValidated] = useState(false);
+  const [validated, setValidated] = useState(false);
 
     const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -38,6 +38,7 @@ function SignIn() {
 
     //   // Redirect after login
       navigate("/commander-dash");
+      // navigate("/soldierHomePage");
     // }
 
 

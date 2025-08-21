@@ -2,7 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { unitStore } from "../stores/UnitStore";
- import { MockUnit } from "../data/FetchFromUnit";
+
+import { userStore } from "../stores/UserStore";
 
 const AddSolider = observer(() => {
   const [first_name, setFirst_name] = useState("");
@@ -10,7 +11,7 @@ const AddSolider = observer(() => {
   const [service_id, setService_id] = useState("");
   const [phone, setPhone] = useState("");
   const [validated, setValidated] = useState(false);
-  const [unit_id, setUnit_id] = useState("");
+  const [unit_id, setUnit_id] = useState(0);
   const [role, setRole] = useState("");
   const [speciality, setSpeciality] = useState([]);
   const [is_active, setIs_active] = useState(true);
@@ -25,11 +26,17 @@ const AddSolider = observer(() => {
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.stopPropagation();
-    } else {
+      setValidated(true);
+      return;
+    }
       // כאן אפשר להוסיף קריאה ל-API ליצירת משתמש
-      let newSolider = { service_id, first_name,last_name,role, phone, unit_id , speciality ,is_active, missions};
-      console.log({ service_id, first_name,last_name,role, phone, unit_id , speciality ,is_active, missions})
-      alert("משתמש נוצר בהצלחה!");
+    try {
+    let newSoldier = { service_id, first_name,last_name,role, phone, unit_id , speciality ,is_active, missions};
+    userStore.addSoldier(newSoldier);
+    alert("משתמש נוצר בהצלחה!");
+    }catch (error) {
+      // Error is already set in userStore.error
+      console.error("Error adding soldier:", error.message);
     }
     setValidated(true);
   };
@@ -120,10 +127,11 @@ const AddSolider = observer(() => {
               placeholder="בחר פלוגה"
               required
             >
+
               <option value="">בחר פלוגה</option>
-              {a.map((name, index) => (
-                <option key={index} value={name.id}>
-                  {name.name}
+              {unitStore.getNames.map((name, index) => (
+                <option key={index} value={name}>
+                  {name}
                 </option>
               ))}
             </select>
@@ -141,8 +149,8 @@ const AddSolider = observer(() => {
               required
             >
               <option value="">בחר סטטוס</option>
-              <option value="private">חייל</option>
-              <option value="sergeant">מפקד</option>
+              <option value="commandar">חייל</option>
+              <option value="soldier">מפקד</option>
 
             </select>
             <div className="invalid-feedback">אנא בחר סטטוס</div>
