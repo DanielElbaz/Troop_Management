@@ -13,7 +13,7 @@ const AddSolider = observer(() => {
   const [validated, setValidated] = useState(false);
   const [unit_id, setUnit_id] = useState(0);
   const [role, setRole] = useState("");
-  const [speciality, setSpeciality] = useState([]);
+  const [speciality_array, setSpeciality] = useState([]);
   const [is_active, setIs_active] = useState(true);
   const [missions, setMissions] = useState([]);
 
@@ -29,7 +29,8 @@ const AddSolider = observer(() => {
     }
     // כאן אפשר להוסיף קריאה ל-API ליצירת משתמש
     try {
-      let newSoldier = { service_id, first_name, last_name, role, phone, unit_id, skills:speciality, is_active, missions };
+      const speciality ={skills:speciality_array}
+      let newSoldier = { service_id, first_name, last_name, role, phone, unit_id,speciality, is_active, missions };
       userStore.addSoldier(newSoldier);
       alert("משתמש נוצר בהצלחה!"); 
     } catch (error) {
@@ -43,7 +44,7 @@ const AddSolider = observer(() => {
     const value = e.target.value;
 
     // בודק אם כבר קיים במערך, כדי לא להוסיף פעמיים
-    if (!speciality.includes(value)) {
+    if (!speciality_array.includes(value)) {
       setSpeciality((prev) => [...prev, value]);
     }
   };
@@ -51,7 +52,7 @@ const AddSolider = observer(() => {
   return (
 
     <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
-      {console.log(speciality)}
+      {console.log(speciality_array)}
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }}>
         <h3 className="text-center mb-4">יצירת חייל חדש</h3>
 
@@ -128,9 +129,9 @@ const AddSolider = observer(() => {
 
               <option value="">בחר פלוגה</option>
               
-              {unitStore.getNames.map((name, index) => (
-                <option key={index} value={name}>
-                  {name}
+              {unitStore.getNames.map((obj) => (
+                <option  value={obj.unit_id}>
+                  {obj.name}
                 </option>
               ))}
             </select>
@@ -161,10 +162,10 @@ const AddSolider = observer(() => {
             <select
               className="form-select"
               id="speciality"
-              value={speciality[speciality.length - 1] || ""} // אופציה אחרונה נראית במקום הדיפולט
+              value={speciality_array[speciality_array.length - 1] || ""} // אופציה אחרונה נראית במקום הדיפולט
               onChange={(e) => {
                 const value = e.target.value;
-                if (value && !speciality.includes(value)) {
+                if (value && !speciality_array.includes(value)) {
                   setSpeciality((prev) => [...prev, value]); // מוסיף למערך
                 }
               }}
@@ -178,9 +179,9 @@ const AddSolider = observer(() => {
             </select>
 
             {/* מציג את כל הנבחרות */}
-            {speciality.length > 0 && (
+            {speciality_array.length > 0 && (
               <div className="mt-2">
-                נבחרו: {speciality.join(", ")}
+                נבחרו: {speciality_array.join(", ")}
               </div>
             )}
 

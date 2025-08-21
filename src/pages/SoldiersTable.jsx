@@ -44,7 +44,7 @@ const SoldiersTable = observer(() => {
                   </span>
                 </td>
                 {console.log(s.speciality)}
-                <td>{s.speciality?.join(", ") || "-"}</td>
+                <td>{s.speciality?.skills?.join(", ") || "-"}</td>
                 <td>
                   <span
                     className={`badge ${
@@ -88,7 +88,7 @@ const SoldiersTable = observer(() => {
                 </span>
               </p>
               <p>
-                <strong>התמחות:</strong> {s.speciality?.join(", ") || "-"}
+                <strong>התמחות:</strong> {s.speciality?.skills?.join(", ") || "-"}
               </p>
               <p>
                 <strong>פעיל:</strong>{" "}
