@@ -9,6 +9,7 @@ import TestUnitStore from './stores/TestUnitStore';
 import CommanderDashboard from './pages/CommanderDashboard';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SoldiersTable from './pages/SoldiersTable';
+// import TestUserStore from './stores/TestUserStore';
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,7 @@ function App() {
         <Route path="/commander-dash" element={<CommanderDashboard />} >
         <Route path="add-solider" element={<AddSolider />} />
         <Route path="soliders-table" element={<SoldiersTable/>} />
+        {/* <Route path="test-user-store" element={<TestUserStore/>} /> */}
         </Route>
       </Routes>
       </BrowserRouter>

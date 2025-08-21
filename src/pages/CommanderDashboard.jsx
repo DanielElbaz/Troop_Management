@@ -57,6 +57,12 @@ export default function CommanderDashboard() {
               יציאה
             </Link>
           </li>
+
+          {/* <li className="nav-item">
+            <Link to="test-user-store" className="nav-link text-white" >
+              טסט
+            </Link>
+          </li> */}
         </ul>
       </div>
 

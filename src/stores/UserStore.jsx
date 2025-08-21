@@ -1,4 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
+import { getAllUsers, searchUsers } from '../data/FetchFromUsers';
 
 export class UserStore {
   users = [];
@@ -9,15 +10,15 @@ export class UserStore {
   unitFilter = null; 
   activeOnly = true;
 
-  unsub = null;
-
-  constructor() { makeAutoObservable(this); }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
   setQuery(q) { this.query = q; }
   setUnitFilter(id) { this.unitFilter = id; }
   setActiveOnly(b) { this.activeOnly = b; }
 
-  // Local filtering (in addition to server-side when USE_MOCK=false)
+  // Client-side filtering (simple & reliable)
   get filtered() {
     return this.users.filter(u => {
       if (this.activeOnly && !u.is_active) return false;
@@ -32,21 +33,24 @@ export class UserStore {
     });
   }
 
-  async fetchUsers() {
-    this.loading = true; this.error = null;
+  async loadUsers() {
+    this.loading = true;
+    this.error = null;
 
-    if(this.unitFilter) req = req.eq('unit_id', this.unitFilter);
-    if (this.activeOnly) req = req.eq('is_active', true);
-    if (this.query) {
-      const q = this.query.replace(/%/g, '').trim();
-      req = req.or(`first_name.ilike.%${q}%,last_name.ilike.%${q}%,service_id.ilike.%${q}%`);
+    try {
+      const data = this.query ? await searchUsers(this.query) : await getAllUsers();
+      runInAction(() => {
+        this.loading = false;
+        this.users = data || [];
+      });
+    } catch (e) {
+      runInAction(() => {
+        this.loading = false;
+        this.error = e?.message || String(e);
+      });
     }
-
-    const { data, error } = await req.order('last_name', { ascending: true }).order('first_name');
-    runInAction(() => {
-      this.loading = false;
-      this.error = error ? error.message : null;
-      this.users = data || [];
-    });
   }
 }
+const userStore = new UserStore();
+userStore.loadUsers();
+export { userStore };
