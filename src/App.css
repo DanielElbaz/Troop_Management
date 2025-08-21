@@ -1,0 +1,28 @@
+:root { --soldier-sidebar-w: 280px; }
+
+/* Sidebar width */
+.soldier-sidebar { width: var(--soldier-sidebar-w); }
+
+/* בדסקטופ: תמיד יש מרווח קבוע לתוכן */
+@media (min-width: 768px) {
+  .soldier-layout .soldier-main {
+    margin-right: var(--soldier-sidebar-w) !important;
+  }
+}
+
+/* במובייל: מרווח רק כשהתפריט פתוח */
+@media (max-width: 767.98px) {
+  .soldier-layout.is-open .soldier-main {
+    margin-right: var(--soldier-sidebar-w);
+  }
+}
+
+/* שיפור לינקים בסיידבר (בלי קופסת פוקוס כחולה) */
+.soldier-sidebar .nav-link {
+  color: #fff;
+  text-decoration: none;
+  border-radius: .5rem;
+}
+.soldier-sidebar .nav-link:hover { background: rgba(255,255,255,0.08); }
+.soldier-sidebar .nav-link.active { background: rgba(255,255,255,0.16); }
+.soldier-sidebar .nav-link:focus { box-shadow: none; outline: none; }

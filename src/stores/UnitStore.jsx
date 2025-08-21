@@ -19,7 +19,7 @@ export class UnitStore {
     this.error = null;
 
     try {
-      const { data, error } = await fetchUnits();
+      const { data, error } = await MockUnit();
       runInAction(() => {
         this.units = data || [];
         this.error = error ? error.message : null;
@@ -34,7 +34,7 @@ export class UnitStore {
   }
 
   // Optional: alias for refresh
-  fetchUnits() {
+  MockUnit() {
     this.loadUnits();
   }
 }
