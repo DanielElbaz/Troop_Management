@@ -48,21 +48,18 @@ export default function CommanderDashboard() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link text-white" onClick={() => setIsSidebarOpen(false)}>
+            <Link to="mission-table" className="nav-link text-white" onClick={() => setIsSidebarOpen(false)}>
               משימות
             </Link>
           </li>
+         
            <li className="nav-item">
             <Link to="/" className="nav-link text-white" >
               יציאה
             </Link>
           </li>
 
-          {/* <li className="nav-item">
-            <Link to="test-user-store" className="nav-link text-white" >
-              טסט
-            </Link>
-          </li> */}
+        
         </ul>
       </div>
 

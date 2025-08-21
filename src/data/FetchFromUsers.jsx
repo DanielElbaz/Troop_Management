@@ -1,4 +1,4 @@
-// import { supabase } from './supabase'
+import { supabase } from './supabase'
 
 /**
  * Adds a new user to the services table.
