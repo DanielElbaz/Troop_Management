@@ -20,7 +20,7 @@ function TestUnitStore() {
               <strong>Units</strong>
               <button
                 className="btn btn-sm btn-outline-secondary"
-                onClick={() => unitStore.fetchUnits()}
+                onClick={() => unitStore.MockUnit()}
               >
                 Refresh
               </button>
