@@ -1,5 +1,5 @@
 // fetchUnits.jsx
-import { supabase } from './supabase'
+// import { supabase } from './supabase'
 
 export async function fetchUnits() {
   try {
