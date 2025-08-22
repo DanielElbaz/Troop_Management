@@ -9,7 +9,7 @@ import { observer } from "mobx-react-lite";
 
 import './Sign.css'
 import { unitStore } from "../stores/UnitStore";
-const SignIn = observer(() => {
+const SignIn = observer(({onChange}) => {
   const [service_id, setService_id] = useState("");
   const [password, setPassword] = useState("");
   const [validated, setValidated] = useState(false);
@@ -26,6 +26,8 @@ const SignIn = observer(() => {
       navigate("/")
       return;
     } else {
+      
+      onChange(Number(service_id))
       const role = userStore.roleById(Number(service_id));
       if (role === null) {
         navigate("/");
@@ -33,6 +35,7 @@ const SignIn = observer(() => {
       }
       console.log("rol " + role);
       role == "commander" ?
+      
         navigate("/commander-dash") : navigate("/soldierHomePage");
       return;
     }

@@ -149,7 +149,7 @@ const AddSolider = observer(() => {
               required
             >
               <option value="">בחר סטטוס</option>
-              <option value="commandar">חייל</option>
+              <option value="commander">חייל</option>
               <option value="soldier">מפקד</option>
 
             </select>
