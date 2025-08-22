@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import SignIn from "./pages/SignIn";
 import SoldierHomePage from "./pages/SoldierHomePage";
 import AddSolider from "./pages/AddSolider";
-
 //import TestUsers from "./data/TestUsers"
 import TestUnitStore from "./stores/TestUnitStore";
 import CommanderDashboard from "./pages/CommanderDashboard";
@@ -19,12 +18,11 @@ function App() {
           <Route path="/" element={<SignIn />} />
           <Route path="/commander-dash" element={<CommanderDashboard />}>
             <Route path="add-solider" element={<AddSolider />} />
-            <Route path="soliders-table" element={<SoldiersTable />} /> 
-            <Route path="mission-table" element={<MissionsTable />} /> 
-            {/* <Route path="/soldierHomePage" element={<SoldierHomePage />} /> */}
+            <Route path="soliders-table" element={<SoldiersTable />} />
+            <Route path="mission-table" element={<MissionsTable />} />
           </Route>
+          <Route path="/soldierHomePage" element={<SoldierHomePage />} />
 
-          <Route path="soliders-table" element={<SoldiersTable />} />
           {/* <Route path="test-user-store" element={<TestUserStore/>} /> */}
         </Routes>
       </BrowserRouter>

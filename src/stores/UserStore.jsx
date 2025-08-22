@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { getAllUsers,addUser } from "../data/FetchFromUsers";
+import { getAllUsers, addUser } from "../data/FetchFromUsers";
 
 export class UserStore {
   users = [];
@@ -16,14 +16,14 @@ export class UserStore {
 
   async addSoldier(user) {
     runInAction(() => {
-     
+
       this.error = null;
     });
     try {
       const savedUser = await addUser(user); // API call
       runInAction(() => {
         this.users.push(savedUser);
-        
+
       });
       return savedUser;
     } catch (e) {
@@ -46,17 +46,26 @@ export class UserStore {
       });
     }
   }
-
+  // Save users to localStorage (or any other storage)
+   filterById(id) {
+    return this.users.filter(user => user.service_id === id);
+  }
+  // Returns the role of the user with the given service_id, or null if not found
+   roleById(id) {
+    const user = this.users.find(user => user.service_id === id);
+    return user ? user.role : null;
+   }
   // --- Getter helpers (like your friend's getNames) ---
   // Unfiltered versions (use this.filtered instead of this.users if you want filtered lists)
 
   get getAllUsers() {
     return this.users;
   }
-  
+
   get getServiceIds() {
     return this.users.map((u) => u.service_id);
   }
+
 
   get getFirstNames() {
     return this.users.map((u) => u.first_name);
@@ -101,10 +110,9 @@ export class UserStore {
   get byServiceId() {
     return new Map(this.users.map((u) => [u.service_id, u]));
   }
-  set SetUser(user){
+  set SetUser(user) {
     this.saveUsers(user);
   }
 }
-const userStore = new UserStore();
+export const userStore = new UserStore();
 userStore.loadUsers();
-export { userStore };
