@@ -48,6 +48,9 @@ export class UserStore {
   filterById(id) {
     return this.users.filter((user) => user.service_id === id); 
   }
+    getAllUnactiveUser() {
+    return this.users.filter((user) => !user.is_active); 
+  }
    findUserById(id) {
     return this.users.find((user) => user.service_id === id); 
   }

@@ -29,29 +29,29 @@ const SoldiersTable = observer(() => {
           <tbody>
             {userStore.getAllUsers.map((s, index) => (
               <tr key={index}>
-                <td>{s.service_id}</td>
-                <td>{s.first_name}</td>
-                <td>{s.last_name}</td>
-                <td>{s.phone}</td>
-                <td>{s.unit_id}</td>
+                <td>{s?.service_id}</td>
+                <td>{s?.first_name}</td>
+                <td>{s?.last_name}</td>
+                <td>{s?.phone}</td>
+                <td>{s?.unit_id}</td>
                 <td>
                   <span
                     className={`badge ${
-                      s.role === "מפקד" ? "bg-success" : "bg-primary"
+                      s?.role === "מפקד" ? "bg-success" : "bg-primary"
                     }`}
                   >
-                    {s.role}
+                    {s?.role}
                   </span>
                 </td>
-                {console.log(s.speciality)}
-                <td>{s.speciality?.skills?.join(", ") || "-"}</td>
+                
+                <td>{s?.speciality?.skills?.join(", ") || "-"}</td>
                 <td>
                   <span
                     className={`badge ${
-                      s.is_active ? "bg-success" : "bg-danger"
+                      s?.is_active ? "bg-success" : "bg-danger"
                     }`}
                   >
-                    {s.is_active ? "פעיל" : "לא פעיל"}
+                    {s?.is_active ? "פעיל" : "לא פעיל"}
                   </span>
                 </td>
               </tr>
@@ -66,38 +66,38 @@ const SoldiersTable = observer(() => {
           <div key={index} className="card mb-3 shadow-sm">
             <div className="card-body">
               <p>
-                <strong>מ.א:</strong> {s.service_id}
+                <strong>מ.א:</strong> {s?.service_id}
               </p>
               <p>
-                <strong>שם:</strong> {s.first_name} {s.last_name}
+                <strong>שם:</strong> {s?.first_name} {s?.last_name}
               </p>
               <p>
-                <strong>טלפון:</strong> {s.phone}
+                <strong>טלפון:</strong> {s?.phone}
               </p>
               <p>
-                <strong>פלוגה:</strong> {s.unit_id}
+                <strong>פלוגה:</strong> {s?.unit_id}
               </p>
               <p>
                 <strong>סטטוס:</strong>{" "}
                 <span
                   className={`badge ${
-                    s.role === "מפקד" ? "bg-success" : "bg-primary"
+                    s?.role === "מפקד" ? "bg-success" : "bg-primary"
                   }`}
                 >
-                  {s.role}
+                  {s?.role}
                 </span>
               </p>
               <p>
-                <strong>התמחות:</strong> {s.speciality?.skills?.join(", ") || "-"}
+                <strong>התמחות:</strong> {s?.speciality?.skills?.join(", ") || "-"}
               </p>
               <p>
                 <strong>פעיל:</strong>{" "}
                 <span
                   className={`badge ${
-                    s.is_active ? "bg-success" : "bg-danger"
+                    s?.is_active ? "bg-success" : "bg-danger"
                   }`}
                 >
-                  {s.is_active ? "✔️" : "❌"}
+                  {s?.is_active ? "✔️" : "❌"}
                 </span>
               </p>
             </div>
