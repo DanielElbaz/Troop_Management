@@ -15,6 +15,10 @@ export class UnitStore {
     return this.units.map(unit => unit);
   }
 
+  filterById(id) {
+    return this.units.filter(unit => unit.id === id);
+  }
+
   async loadUnits() {
     this.loading = true;
     this.error = null;
