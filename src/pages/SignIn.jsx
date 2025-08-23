@@ -1,7 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-//import { supabase } from "../data/supabaseClient";
-//import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { userStore } from "../stores/UserStore";
 import { observer } from "mobx-react-lite";
@@ -10,12 +8,10 @@ import "./Sign.css";
 const SignIn = observer(() => {
   const [service_id, setService_id] = useState("");
   const [password, setPassword] = useState("");
-  const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   function SignInClicked(e) {
-    setValidated(true);
     e.preventDefault();
     const user = userStore.findUserById(Number(service_id));
     if (!user) {
@@ -27,27 +23,33 @@ const SignIn = observer(() => {
         navigate("/");
         return;
       }
-
       userStore.SetCurrentUser(Number(service_id));
-      role == "commander"
+      role === "commander"
         ? navigate("/commander-dash")
         : navigate("/soldierHomePage");
-      return;
     }
   }
+
   const isValid = /^\d{7}$/.test(service_id);
+
   return (
-    <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
-      <div
-        className="card shadow p-4"
-        style={{ width: "100%", maxWidth: "400px" }}
-      >
-        <h3 className="text-center mb-4">התחברות</h3>
+    <div className="container d-flex align-items-center justify-content-center vh-100 sign-bg">
+       <div className="text-center mb-3 img-container">
+          <img className="sign-logo"
+            src="/troop.png" // שים כאן את התמונה של סמל צה"ל בתיקיית public/assets
+            alt="IDF Logo"
+            style={{ width: "280px", marginBottom: "10px" }}
+          />
+        </div>
+      <div className="card shadow p-4 custom-card">
+        {/* לוגו צה"ל */}
+    
+
+        <h3 className="text-center mb-4 text-gold">התחברות</h3>
 
         <form>
-          {/* Email */}
           <div className="mb-3">
-            <label htmlFor="service_id" className="form-label">
+            <label htmlFor="service_id" className="form-label text-dark fw-bold">
               מ.א
             </label>
             <input
@@ -68,9 +70,8 @@ const SignIn = observer(() => {
             />
           </div>
 
-          {/* Password */}
           <div className="mb-3">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className="form-label text-dark fw-bold">
               סיסמא
             </label>
             <input
@@ -84,32 +85,25 @@ const SignIn = observer(() => {
             />
           </div>
 
-          {/* Remember me */}
           <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="rememberMe"
-            />
-            <label className="form-check-label" htmlFor="rememberMe">
+            <input type="checkbox" className="form-check-input" id="rememberMe" />
+            <label className="form-check-label text-dark" htmlFor="rememberMe">
               זכור אותי
             </label>
           </div>
 
-          {/* Button */}
           <button
             type="submit"
-            className="btn btn-primary w-100"
+            className="btn btn-idf w-100"
             onClick={SignInClicked}
           >
             {loading ? "מתחבר..." : "התחבר"}
           </button>
         </form>
 
-        {/* Links */}
         <div className="mt-3 text-center">
-          <a href="#">שכחת סיסמא?</a> <br />
-          <a href="#">צור חשבון</a>
+          <a href="#" className="link-gold">שכחת סיסמא?</a> <br />
+          <a href="#" className="link-gold">צור חשבון</a>
         </div>
       </div>
     </div>
