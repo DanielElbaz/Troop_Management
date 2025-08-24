@@ -39,5 +39,19 @@ export async function createMissionWithAssignees(mission, soldierServiceIds = []
     if (linkErr) throw linkErr;
   }
 
+
+export async function addMission(mission) {
+  const { data, error } = await supabase
+    .from('missions')
+    .insert([mission])
+
+  if (error) {
+    console.error('Error adding mission:', error)
+    return null
+  }
+  return data
+}
+
   return created.id;
 }
+

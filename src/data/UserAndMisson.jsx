@@ -52,3 +52,21 @@ export async function getUserMissions(userId, opts = {}) {
   // Flatten and filter out any null/undefined just in case
   return (data || []).map(r => r.missions).filter(Boolean);
 }
+
+
+export async function assignUsersToMission(missionId, userId) {
+  const { data, error } = await supabase
+    .from('mission_operational_users')
+    .insert({
+        mission_id: missionId,
+        user_id: userId
+    })
+
+  if (error) {
+    console.error('Error assigning users to mission:', error)
+    return null
+  }
+
+  return data
+}
+
