@@ -172,10 +172,10 @@ const AddSolider = observer(() => {
               required
             >
               <option value="">בחר התמחות</option>
-              <option value="kala">קלע</option>
-              <option value="driver">נהג</option>
-              <option value="mag">מגיסט</option>
-              <option value="negev">נגביסט</option>
+              <option value="קלע">קלע</option>
+              <option value="נהג">נהג</option>
+              <option value="מגיסט">מגיסט</option>
+              <option value="נגביסט">נגביסט</option>
             </select>
 
             {/* מציג את כל הנבחרות */}

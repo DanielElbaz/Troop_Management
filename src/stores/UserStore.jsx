@@ -58,7 +58,7 @@ export class UserStore {
   }
   // --- Getter helpers (like your friend's getNames) ---
   // Unfiltered versions (use this.filtered instead of this.users if you want filtered lists)
-
+  
   get getAllUsers() {
     return this.users;
   }

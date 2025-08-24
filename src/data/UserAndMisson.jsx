@@ -25,9 +25,18 @@ export async function getUserMissions(userId) {
   return data.map(item => item.missions)
 }
 
+export async function assignUsersToMission(missionId, userId) {
+  const { data, error } = await supabase
+    .from('mission_operational_users')
+    .insert({
+        mission_id: missionId,
+        user_id: userId
+    })
 
+  if (error) {
+    console.error('Error assigning users to mission:', error)
+    return null
+  }
 
-// שימוש
-// getUserMissions(1001).then(missions => {
-//   console.log('Missions for user 1001:', missions)
-// })
+  return data
+}

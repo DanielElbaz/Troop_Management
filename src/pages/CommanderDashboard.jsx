@@ -62,7 +62,7 @@ const CommanderDashboard = observer(() => {
           </li>
           <li className="nav-item">
             <Link
-              to="mission-add"
+              to={"mission-add?commanderId=" + user?.service_id}
               className="nav-link text-white"
               onClick={() => setIsSidebarOpen(false)}
             >
