@@ -13,7 +13,7 @@ class MissionsStore{
     }
 
     addMission(mission) {
-       // this.missions.push(mission);
+       this.missions.push(mission);
     }
 
     getAllMissions() {
