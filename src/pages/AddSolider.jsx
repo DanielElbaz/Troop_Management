@@ -14,7 +14,7 @@ const AddSolider = observer(() => {
   const [unit_id, setUnit_id] = useState(0);
   const [role, setRole] = useState("");
   const [speciality_array, setSpeciality] = useState([]);
-  const [is_active, setIs_active] = useState(true);
+  const [is_active, setIs_active] = useState(false);
   const [missions, setMissions] = useState([]);
 
 

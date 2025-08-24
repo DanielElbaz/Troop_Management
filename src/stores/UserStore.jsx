@@ -5,12 +5,14 @@ export class UserStore {
   users = [];
   error = null;
   currentUserId = null;
-
+  
   unitFilter = null;
   activeOnly = true;
 
   constructor() {
     makeAutoObservable(this);
+    const storedUser = localStorage.getItem("currentUserId"); // כן, האובייקט שלך
+    this.currentUserId = storedUser ? JSON.parse(storedUser) : null;
     this.loadUsers();
   }
 
@@ -47,6 +49,9 @@ export class UserStore {
   // Save users to localStorage (or any other storage)
   filterById(id) {
     return this.users.filter((user) => user.service_id === id); 
+  }
+    getAllUnactiveUser() {
+    return this.users.filter((user) => !user.is_active); 
   }
    findUserById(id) {
     return this.users.find((user) => user.service_id === id); 
@@ -121,6 +126,11 @@ export class UserStore {
     const user =  localStorage.getItem("currentUserId");
     return user ? JSON.parse(user) : null;
   }
+
+  logout() {
+  localStorage.removeItem("currentUserId"); 
+  this.currentUserId = null;               
+}
   
 }
 export const userStore = new UserStore();

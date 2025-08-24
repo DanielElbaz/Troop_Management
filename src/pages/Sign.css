@@ -1,13 +1,158 @@
-
-
 .valid-input {
   background-color: rgb(183, 241, 178);
 }
-.form-check{
+
+.form-check {
   display: flex;
   align-items: center;  /* מיישר את הצ'קבוקס עם הטקסט */
-  gap: 32px;             /* רווח בין הצ'קבוקס לטקסט */
+  gap: 32px;            /* רווח בין הצ'קבוקס לטקסט */
   direction: rtl; 
   float: right;
 }
 
+/* רקע ירוק עם אפקט */
+.sign-bg {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  display: flex;
+  
+  padding: 16px; /* כדי שהכרטיס לא יידבק למסך בצדדים */
+ 
+}
+.sign-logo{
+  width: 350px;
+  margin-bottom: 10px;
+}
+
+/* כרטיס עם מסגרת עגולה וצבעים */
+.custom-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  background-color: #fdfdfd;
+  border: 2px solid #c8b900; /* זהב */
+  padding: 20px;
+}
+
+/* טקסט זהוב */
+.text-gold {
+  color: #c8b900;
+  font-weight: bold;
+}
+
+/* כפתור עיצוב מיוחד */
+.btn-idf {
+  background-color: #2e7d32;
+  border: none;
+  font-weight: bold;
+  color: white;
+  transition: 0.3s;
+}
+
+.btn-idf:hover {
+  background-color: #1b5e20;
+}
+
+/* קישורים בצבע זהב */
+.link-gold {
+  color: #c8b900;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.link-gold:hover {
+  text-decoration: underline;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.note-details {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 5px 13px 25px rgba(248, 211, 1, 0.25);
+  width: 320px;
+  max-width: 90%;
+  animation: fadeIn 0.2s ease-in-out;
+}
+.parent-note {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(229, 237, 4, 0.863);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 260px;
+}
+
+.parent-note-update {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 260px;
+  height: 200px;
+}
+.btn-outline-gold {
+  color: #c9a227;           /* צבע טקסט זהב */
+  border: 1px solid #c9a227;
+  background-color: transparent;
+  transition: 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+  background-color: #c9a227;
+  color: #fff;              /* טקסט לבן כשהכפתור ממולא */
+}
+
+/* --- התאמה למובייל --- */
+@media (max-width: 576px) {
+  .custom-card {
+    max-width: 100%;   /* ימלא כמעט את כל רוחב המסך */
+    padding: 16px;
+    margin-top: -40px;
+    
+  }
+
+  .form-check {
+    gap: 12px;         /* מרווח קטן יותר בצ'קבוקס */
+    float: none;
+    justify-content: flex-start;
+  }
+
+  .btn-idf {
+    font-size: 14px;   /* טקסט קטן יותר בכפתור */
+    padding: 10px;
+  }
+
+  .text-gold {
+    font-size: 20px;   /* הכותרת תיראה טוב במסך קטן */
+  }
+
+  input.form-control {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .img-container{
+    margin-top: 0px;
+   
+  }
+  .sign-logo{
+    width: 200px;
+    margin-bottom: 10px;
+    margin-top: -50px;
+  }
+  .sign-bg {
+ 
+   flex-direction: column;
+
+ 
+}
+
+}

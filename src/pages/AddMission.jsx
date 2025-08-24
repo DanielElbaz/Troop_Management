@@ -4,6 +4,8 @@ import { observer } from "mobx-react-lite";
 import { missionsStore } from "../stores/MissionsStore";
 import { unitStore } from "../stores/UnitStore";
 import { useSearchParams } from "react-router-dom";
+import { userStore } from "../stores/UserStore";
+
 
 const AddMissionForm = observer(() => {
   const [searchParams] = useSearchParams();
@@ -17,6 +19,12 @@ const AddMissionForm = observer(() => {
   const [notes, setNotes] = useState("");
   const [comments, setComments] = useState("");
   const [validated, setValidated] = useState(false);
+
+  const [service_id, setService_id] = useState("");
+
+
+
+  const unActiveUsers = userStore.getAllUnactiveUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -142,23 +150,21 @@ const AddMissionForm = observer(() => {
                 </option>
               ))}
             </select>
-            <div className="invalid-feedback">אנא בחר פלוגה</div>
+            <div className="invalid-feedback">אנא בחר חייל</div>
           </div>
           <div className="mb-3">
-            <label className="form-label">הערות (מופרדות בפסיק)</label>
-            <input
-              type="text"
-              className="form-control"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-            />
+
+            <label className="form-label">חייל</label>
+            <select className="form-select" value={service_id} onChange={(e) => setService_id(Number(e.target.value))} required>
+              <option value="">בחר חייל</option>
+              {unActiveUsers.map((id) => (
+                <option key={id.service_id} value={id.service_id}>{id.service_id}: {id.first_name}</option>
+              ))}
+            </select>
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary w-100"
-          >
-            צור משימה
-          </button>
+        
+          <button type="submit" className="btn btn-primary w-100">צור משימה</button>
+
         </form>
       </div>
     </div>
