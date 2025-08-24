@@ -5,9 +5,12 @@ import { missionsStore } from "../stores/MissionsStore";
 import { unitStore } from "../stores/UnitStore";
 import { useSearchParams } from "react-router-dom";
 import { userStore } from "../stores/UserStore";
+import SearchSoldier from "../components/SearchSoldier";
+import CommanderDashboard from "./CommanderDashboard"; "../pages/CommanderDashboard.css"
 
 
 const AddMissionForm = observer(() => {
+  const [assigneeIds, setAssigneeIds] = useState([]);
   const [searchParams] = useSearchParams();
   const created_by = searchParams.get("commanderId");
   const [title, setTitle] = useState("");
@@ -20,13 +23,9 @@ const AddMissionForm = observer(() => {
   const [comments, setComments] = useState("");
   const [validated, setValidated] = useState(false);
 
-  const [service_id, setService_id] = useState("");
+  
 
-
-
-  const unActiveUsers = userStore.getAllUnactiveUser();
-
-  const handleSubmit = (e) => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -48,7 +47,10 @@ const AddMissionForm = observer(() => {
         unit_id,
         inserted_at
       };
-      missionsStore.addMission(newMission, [1002,1003]);
+
+      console.log(assigneeIds)
+       missionsStore.newMission(newMission, assigneeIds); // ממש כמו addSoldier
+
       alert("משימה נוצרה בהצלחה!");
 
       // איפוס השדות
@@ -67,11 +69,11 @@ const AddMissionForm = observer(() => {
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
-      <div
-        className="card shadow p-4"
-        style={{ width: "100%", maxWidth: "500px" }}
-      >
+
+
+    <div className="container d-flex align-items-center justify-content-center vh-100  constainer-fluid ">
+      <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }}>
+
         <h3 className="text-center mb-4">יצירת משימה חדשה</h3>
         <form
           noValidate
@@ -155,12 +157,9 @@ const AddMissionForm = observer(() => {
           <div className="mb-3">
 
             <label className="form-label">חייל</label>
-            <select className="form-select" value={service_id} onChange={(e) => setService_id(Number(e.target.value))} required>
-              <option value="">בחר חייל</option>
-              {unActiveUsers.map((id) => (
-                <option key={id.service_id} value={id.service_id}>{id.service_id}: {id.first_name}</option>
-              ))}
-            </select>
+            
+             <SearchSoldier onChangeIds={setAssigneeIds} />
+            
           </div>
         
           <button type="submit" className="btn btn-primary w-100">צור משימה</button>

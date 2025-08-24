@@ -1,0 +1,16 @@
+
+.constainer-fluid{
+    width: 100%;
+}
+.constainer-fluid{
+    margin-top: 50px;
+}
+.constainer-sold{
+ margin-top:50px ;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+   /* או יותר אם רוצים יותר רווח */
+  }
+}

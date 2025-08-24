@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { unitStore } from "../stores/UnitStore";
-
+import "../pages/CommanderDashboard.css"
 import { userStore } from "../stores/UserStore";
 
 const AddSolider = observer(() => {
@@ -51,7 +51,7 @@ const AddSolider = observer(() => {
 
   return (
 
-    <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div className="container d-flex align-items-center justify-content-center vh-100  constainer-sold ">
       {console.log(speciality_array)}
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }}>
         <h3 className="text-center mb-4">יצירת חייל חדש</h3>

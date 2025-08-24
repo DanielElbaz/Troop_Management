@@ -1,11 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { getUserMissions } from "../data/UserAndMisson"; // adjust if your filename differs
+import { userStore } from "../stores/UserStore"; // NEW: fallback to store
 
 /**
  * Props:
- * - soldier?: { name?: string, rank?: string }
- * - missions: Array<{ id, title, location?, start?, end?, status? }>
+ * - soldier?: { name?: string, rank?: string, service_id?: string|number, unit_id?: string|number }
+ * - missions?: Array<{ id, title, location?, start_at?, end_at?, status?, unit_id? }>
  * - onSubmitComment?: (text: string) => void
  * - onSignOut?: () => void
  */
@@ -16,9 +18,31 @@ export default function SoldierHomePage({
   onSignOut,
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   const [view, setView] = useState("missions"); // "missions" | "comment"
   const [comment, setComment] = useState("");
+
+  // Resolve soldier: prefer prop, else from store/localStorage (userStore stores in "currentUserId")
+  const soldierFromStore = useMemo(() => userStore.GetCurrentUser(), []);
+  const effectiveSoldier = soldier || soldierFromStore || null;
+
+  // Resolve service_id & unit_id
+  const serviceId =
+    effectiveSoldier?.service_id != null
+      ? Number(effectiveSoldier.service_id)
+      : null;
+
+  const soldierUnitId =
+    effectiveSoldier?.unit_id != null
+      ? String(effectiveSoldier.unit_id)
+      : null;
+
+  // Local missions (if no missions prop supplied)
+  const [myMissions, setMyMissions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Use missions prop if provided; otherwise fetched ones
+  const missionsToShow = missions?.length ? missions : myMissions;
 
   const fmtTime = (d) => {
     if (!d) return "";
@@ -29,15 +53,34 @@ export default function SoldierHomePage({
     }).format(date);
   };
 
-  const handleSend = (e) => {
-    e.preventDefault();
-    if (!comment.trim()) return;
-    onSubmitComment?.(comment.trim());
-    setComment("");
-  };
+  async function loadMissions() {
+    if (!serviceId) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const rows = await getUserMissions(serviceId, { order: "desc" });
+      // Optional safety: keep only missions that match soldier’s unit (if known)
+      const filtered =
+        soldierUnitId != null
+          ? (rows || []).filter((m) => String(m.unit_id) === soldierUnitId)
+          : rows || [];
+      setMyMissions(filtered);
+    } catch (e) {
+      setError(e?.message || String(e));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!missions?.length) {
+      loadMissions();
+    }
+  }, [serviceId, soldierUnitId]);
 
   const soldierLabel =
-    [soldier?.rank, soldier?.name].filter(Boolean).join(" ") || "חייל";
+    [effectiveSoldier?.rank, effectiveSoldier?.name].filter(Boolean).join(" ") ||
+    "חייל";
 
   return (
     <div
@@ -116,7 +159,17 @@ export default function SoldierHomePage({
         <div className="container-fluid p-4">
           {view === "missions" && (
             <section>
-              <h5 className="mb-3">המשימות שלי</h5>
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <h5 className="mb-0">המשימות שלי</h5>
+                {!missions?.length && (
+                  <button className="btn btn-outline-secondary btn-sm" onClick={loadMissions}>
+                    רענן
+                  </button>
+                )}
+              </div>
+
+              {error && <div className="alert alert-danger">שגיאה: {error}</div>}
+
               <div className="table-responsive">
                 <table className="table table-striped table-hover align-middle">
                   <thead className="table-light">
@@ -129,12 +182,12 @@ export default function SoldierHomePage({
                     </tr>
                   </thead>
                   <tbody>
-                    {missions.map((m) => (
+                    {missionsToShow.map((m) => (
                       <tr key={m.id}>
                         <td className="fw-medium">{m.title}</td>
                         <td>{m.location || "-"}</td>
-                        <td className="text-nowrap">{fmtTime(m.start)}</td>
-                        <td className="text-nowrap">{fmtTime(m.end)}</td>
+                        <td className="text-nowrap">{fmtTime(m.start_at)}</td>
+                        <td className="text-nowrap">{fmtTime(m.end_at)}</td>
                         <td>
                           <span className="badge bg-secondary">{m.status || "—"}</span>
                         </td>
@@ -143,9 +196,14 @@ export default function SoldierHomePage({
                   </tbody>
                 </table>
 
-                {missions.length === 0 && (
+                {!loading && missionsToShow.length === 0 && (
                   <div className="card">
                     <div className="card-body text-muted">אין משימות כרגע.</div>
+                  </div>
+                )}
+                {loading && (
+                  <div className="card">
+                    <div className="card-body text-muted">טוען…</div>
                   </div>
                 )}
               </div>
@@ -155,7 +213,16 @@ export default function SoldierHomePage({
           {view === "comment" && (
             <section>
               <h5 className="mb-3">שליחת הודעה למפקד</h5>
-              <form onSubmit={handleSend} className="card" style={{ maxWidth: 900 }}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!comment.trim()) return;
+                  onSubmitComment?.(comment.trim());
+                  setComment("");
+                }}
+                className="card"
+                style={{ maxWidth: 900 }}
+              >
                 <div className="card-body">
                   <div className="mb-3">
                     <label className="form-label">הודעה</label>

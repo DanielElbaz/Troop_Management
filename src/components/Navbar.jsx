@@ -13,7 +13,7 @@ function Navbar({ user }) {
   };
 
   return (
-    <div className="d-flex flex-column flex-md-row vh-100">
+    <div className="d-flex flex-column flex-md-row ">
       {/* Mobile toggle button */}
       <div className="d-md-none p-2 bg-dark text-white d-flex justify-content-between align-items-center">
         <span className="fw-bold">המפקד {user?.first_name}</span>

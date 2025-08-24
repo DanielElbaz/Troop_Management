@@ -1,6 +1,11 @@
 import { makeAutoObservable } from "mobx";
+
 import { fetchAllMissions, addMission } from "../data/FetchFromMission";
 import { assignUsersToMission } from "../data/UserAndMisson";
+
+import { fetchAllMissions, createMissionWithAssignees } from "../data/FetchFromMission";
+
+
 class MissionsStore{
     constructor() {
         this.missions = [];
@@ -11,6 +16,7 @@ class MissionsStore{
         const missions = await fetchAllMissions();
         this.missions = missions;
     }
+
     generateId(){
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0,
@@ -30,6 +36,7 @@ class MissionsStore{
         });
         this.missions.push(mission);
     }
+
 
     getAllMissions() {
         return this.missions;
