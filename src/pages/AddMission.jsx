@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import { missionsStore } from "../stores/MissionsStore";
 import { unitStore } from "../stores/UnitStore";
 import { userStore } from "../stores/UserStore";
+import "../pages/CommanderDashboard.css"
 
 const AddMissionForm = observer(() => {
   const [title, setTitle] = useState("");
@@ -61,7 +62,7 @@ const AddMissionForm = observer(() => {
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div className="container d-flex align-items-center justify-content-center vh-100  constainer-fluid ">
       <div className="card shadow p-4" style={{ width: "100%", maxWidth: "500px" }}>
         <h3 className="text-center mb-4">יצירת משימה חדשה</h3>
         <form noValidate className={validated ? "was-validated" : ""} onSubmit={handleSubmit}>
