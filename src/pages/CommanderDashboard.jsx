@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { userStore } from "../stores/UserStore";
 import { observer } from "mobx-react-lite";
 import Navbar from "../components/Navbar";
-import "../pages/CommanderDashboard.css"
+
+import SearchSoldier from "../components/SearchSoldier";
+
 
 const CommanderDashboard = observer(() => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -58,6 +60,7 @@ const CommanderDashboard = observer(() => {
             <div className="col-4 fw-bold">תפקיד:</div>
             <div className="col-8">{user?.role === "commander"?  "מפקד":"" || "-"}</div>
           </div>
+          
         </div>
         {/* Content */}
         <div className="container-fluid p-4 mar">

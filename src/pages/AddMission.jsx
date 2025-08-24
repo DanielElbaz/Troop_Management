@@ -4,7 +4,9 @@ import { observer } from "mobx-react-lite";
 import { missionsStore } from "../stores/MissionsStore";
 import { unitStore } from "../stores/UnitStore";
 import { userStore } from "../stores/UserStore";
-import "../pages/CommanderDashboard.css"
+
+import SearchSoldier from "../components/SearchSoldier";
+
 
 const AddMissionForm = observer(() => {
   const [title, setTitle] = useState("");
@@ -107,12 +109,9 @@ const AddMissionForm = observer(() => {
           </div>
           <div className="mb-3">
             <label className="form-label">חייל</label>
-            <select className="form-select" value={service_id} onChange={(e) => setService_id(Number(e.target.value))} required>
-              <option value="">בחר חייל</option>
-              {unActiveUsers.map((id) => (
-                <option key={id.service_id} value={id.service_id}>{id.service_id}: {id.first_name}</option>
-              ))}
-            </select>
+            
+             <SearchSoldier/>
+            
           </div>
         
           <button type="submit" className="btn btn-primary w-100">צור משימה</button>
