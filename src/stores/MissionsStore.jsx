@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { fetchAllMissions } from "../data/FetchFromMission";
+import { fetchAllMissions, createMissionWithAssignees } from "../data/FetchFromMission";
 
 class MissionsStore{
     constructor() {
@@ -12,9 +12,11 @@ class MissionsStore{
         this.missions = missions;
     }
 
-    addMission(mission) {
-       // this.missions.push(mission);
-    }
+    async newMission(mission, soldierIds = []) {
+    this.error = null;
+    await createMissionWithAssignees(mission, soldierIds);
+    await this.loadMissions();
+  }
 
     getAllMissions() {
         return this.missions;

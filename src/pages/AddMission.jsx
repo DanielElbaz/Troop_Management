@@ -4,18 +4,16 @@ import { observer } from "mobx-react-lite";
 import { missionsStore } from "../stores/MissionsStore";
 import { unitStore } from "../stores/UnitStore";
 import { userStore } from "../stores/UserStore";
-<<<<<<< HEAD
+
 import SearchSoldier from "../components/SearchSoldier";
 
 import CommanderDashboard from "./CommanderDashboard"; "../pages/CommanderDashboard.css"
 
-=======
 
-import SearchSoldier from "../components/SearchSoldier";
 
->>>>>>> 16a888ede3c8ae872ab0e4bfe0c8cdd8a78f66f8
 
 const AddMissionForm = observer(() => {
+  const [assigneeIds, setAssigneeIds] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("planned");
@@ -26,13 +24,9 @@ const AddMissionForm = observer(() => {
   const [comments, setComments] = useState("");
   const [validated, setValidated] = useState(false);
 
-  const [service_id, setService_id] = useState("");
+  
 
-
-
-  const unActiveUsers = userStore.getAllUnactiveUser();
-
-  const handleSubmit = (e) => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -52,7 +46,8 @@ const AddMissionForm = observer(() => {
         notes: notes ? notes.split(",") : [],
         comments: comments ? comments.split(",") : [],
       };
-      missionsStore.addMission(newMission); // ממש כמו addSoldier
+      console.log(assigneeIds)
+       missionsStore.newMission(newMission, assigneeIds); // ממש כמו addSoldier
       alert("משימה נוצרה בהצלחה!");
 
       // איפוס השדות
@@ -117,7 +112,7 @@ const AddMissionForm = observer(() => {
           <div className="mb-3">
             <label className="form-label">חייל</label>
             
-             <SearchSoldier/>
+             <SearchSoldier onChangeIds={setAssigneeIds} />
             
           </div>
         

@@ -9,15 +9,8 @@ export async function fetchAllMissions() {
   }
   return data;
 }
-
-/**
- * Creates a mission and assigns soldiers in the junction table.
- * @param {Object} mission  - {title, description, status, start_at, end_at, unit_id, notes?, comments?}
- * @param {number[]} soldierServiceIds - array of service_id (users.service_id)
- * @returns {number|null} mission id
- */
 export async function createMissionWithAssignees(mission, soldierServiceIds = []) {
-  // Insert mission
+  // 1) create mission
   const { data: created, error: mErr } = await supabase
     .from('missions')
     .insert([{
@@ -32,14 +25,10 @@ export async function createMissionWithAssignees(mission, soldierServiceIds = []
     }])
     .select('id')
     .single();
+  if (mErr) throw mErr;
 
-  if (mErr) {
-    console.error('Error inserting mission:', mErr);
-    return null;
-  }
-
-  // Link soldiers (assumes mission_operational_users.user_id stores service_id)
-  if (soldierServiceIds.length > 0) {
+  // 2) link soldiers (pivot: mission_operational_users; user_id = service_id)
+  if (soldierServiceIds.length) {
     const rows = soldierServiceIds.map((sid) => ({
       mission_id: created.id,
       user_id: sid,
@@ -47,11 +36,7 @@ export async function createMissionWithAssignees(mission, soldierServiceIds = []
     const { error: linkErr } = await supabase
       .from('mission_operational_users')
       .insert(rows);
-
-    if (linkErr) {
-      console.error('Error linking soldiers to mission:', linkErr);
-      // You might want to rollback the mission insert in a RPC; omitted here.
-    }
+    if (linkErr) throw linkErr;
   }
 
   return created.id;
