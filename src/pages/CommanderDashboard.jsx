@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { userStore } from "../stores/UserStore";
 import { observer } from "mobx-react-lite";
 import Navbar from "../components/Navbar";
-
 import SearchSoldier from "../components/SearchSoldier";
+
 
 
 const CommanderDashboard = observer(() => {
