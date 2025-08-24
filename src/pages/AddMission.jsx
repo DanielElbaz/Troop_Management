@@ -4,10 +4,16 @@ import { observer } from "mobx-react-lite";
 import { missionsStore } from "../stores/MissionsStore";
 import { unitStore } from "../stores/UnitStore";
 import { userStore } from "../stores/UserStore";
+<<<<<<< HEAD
 import SearchSoldier from "../components/SearchSoldier";
 
 import CommanderDashboard from "./CommanderDashboard"; "../pages/CommanderDashboard.css"
 
+=======
+
+import SearchSoldier from "../components/SearchSoldier";
+
+>>>>>>> 16a888ede3c8ae872ab0e4bfe0c8cdd8a78f66f8
 
 const AddMissionForm = observer(() => {
   const [title, setTitle] = useState("");
