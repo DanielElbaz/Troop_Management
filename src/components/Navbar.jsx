@@ -1,16 +1,22 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { userStore } from "../stores/UserStore";
 
 
-function Navbar({user}) {
-      const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+function Navbar({ user }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleLogout = () => {
+    userStore.logout(); // מנקה את localStorage ואת currentUserId
+    navigate("/");      // רידיירקט לעמוד הראשי
+  };
 
   return (
     <div className="d-flex flex-column flex-md-row vh-100">
       {/* Mobile toggle button */}
       <div className="d-md-none p-2 bg-dark text-white d-flex justify-content-between align-items-center">
-        <span className="fw-bold">המפקד {user.first_name}</span>
+        <span className="fw-bold">המפקד {user?.first_name}</span>
         <button
           className="btn btn-outline-light btn-sm"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -21,9 +27,8 @@ function Navbar({user}) {
 
       {/* Sidebar */}
       <div
-        className={`bg-dark text-white p-3 vh-100 position-md-relative position-fixed ${
-          isSidebarOpen ? "d-block" : "d-none"
-        } d-md-block`}
+        className={`bg-dark text-white p-3 vh-100 position-md-relative position-fixed ${isSidebarOpen ? "d-block" : "d-none"
+          } d-md-block`}
         style={{ width: "200px", zIndex: 1000 }}
       >
         <h4 className="mb-4 d-md-block d-none">ראשי</h4>
@@ -66,14 +71,14 @@ function Navbar({user}) {
           </li>
 
           <li className="nav-item">
-            <Link to="/" className="nav-link text-white">
+            <Link to="/" className="nav-link text-white" onClick={handleLogout}>
               יציאה
             </Link>
           </li>
         </ul>
       </div>
 
-    
+
     </div>
   );
 }
