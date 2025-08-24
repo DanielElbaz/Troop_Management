@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { userStore } from "../stores/UserStore";
 import { observer } from "mobx-react-lite";
 import Navbar from "../components/Navbar";
-import SearchSoldier from "../components/SearchSoldier";
+
+
+import "../pages/CommanderDashboard.css"
+
 
 const CommanderDashboard = observer(() => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,7 +21,7 @@ const CommanderDashboard = observer(() => {
        <Navbar user= {user}/>
       {/* Main content */}
       <div
-        className="flex-grow-1 ms-md-3"
+        className="flex-grow-1 main-content"
         style={{
           marginLeft: isSidebarOpen ? "250px" : "0",
           transition: "margin 0.3s",
@@ -56,12 +59,12 @@ const CommanderDashboard = observer(() => {
           </div>
           <div className="row mb-2">
             <div className="col-4 fw-bold">תפקיד:</div>
-            <div className="col-8">{user?.role || "-"}</div>
+            <div className="col-8">{user?.role === "commander"?  "מפקד":"" || "-"}</div>
           </div>
           
         </div>
         {/* Content */}
-        <div className="container-fluid p-4">
+        <div className="container-fluid p-4 mar">
           <Outlet />
         </div>
       </div>
