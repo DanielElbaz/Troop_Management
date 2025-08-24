@@ -92,7 +92,7 @@ export class UserStore {
 
   // speciality and missions are arrays per user; this returns an array-of-arrays
   get getSpecialities() {
-    return this.users.map((u) => u.speciality ?? []);
+    return this.users.map((u) => u.speciality.skills ?? []);
   }
 
   get getIsActive() {
