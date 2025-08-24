@@ -12,11 +12,7 @@ class MissionsStore{
         this.missions = missions;
     }
 
-    async newMission(mission, soldierIds = []) {
-    this.error = null;
-    await createMissionWithAssignees(mission, soldierIds);
-    await this.loadMissions();
-  }
+   
 
     getAllMissions() {
         return this.missions;
