@@ -12,7 +12,7 @@ class MissionsStore{
         this.missions = missions;
     }
 
-   
+
 
     getAllMissions() {
         return this.missions;
