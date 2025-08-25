@@ -49,7 +49,7 @@ const AddMissionForm = observer(() => {
       };
 
       console.log(assigneeIds)
-       missionsStore.newMission(newMission, assigneeIds); // ממש כמו addSoldier
+       missionsStore.addMission(newMission, assigneeIds); // ממש כמו addSoldier
 
       alert("משימה נוצרה בהצלחה!");
 

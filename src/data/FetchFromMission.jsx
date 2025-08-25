@@ -38,6 +38,7 @@ export async function createMissionWithAssignees(mission, soldierServiceIds = []
       .insert(rows);
     if (linkErr) throw linkErr;
   }
+}
 
 
 export async function addMission(mission) {
@@ -52,6 +53,4 @@ export async function addMission(mission) {
   return data
 }
 
-  return created.id;
-}
 

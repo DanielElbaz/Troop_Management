@@ -3,7 +3,6 @@ import { makeAutoObservable } from "mobx";
 import { fetchAllMissions, addMission } from "../data/FetchFromMission";
 import { assignUsersToMission } from "../data/UserAndMisson";
 
-import { fetchAllMissions, createMissionWithAssignees } from "../data/FetchFromMission";
 
 
 class MissionsStore{
